@@ -1,11 +1,884 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website</title>
+    <meta name="description" content="Discover Marcella Restaurante — the best restaurant in San Juan, Puerto Rico. Fine dining at Paseo Caribe with exquisite Puerto Rican and international cuisine.">
+    <meta name="keywords" content="Best restaurant in San Juan, Puerto Rico, Paseo Caribe, Fine dining, Puerto Rican cuisine, Marcella Restaurante, Jose Sanchez">
+    <title>Marcella Restaurant by Jose Sanchez | Best Restaurant in San Juan Puerto Rico</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            color: #333333;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+        }
+
+        /* Color Variables */
+        :root {
+            --primary-violet: #4A235A;
+            --secondary-lavender: #F5EEF8;
+            --accent-gold: #D4AF37;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+        }
+
+        /* Custom Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes orchidBloom {
+            from {
+                opacity: 0;
+                transform: scale(0.8) rotate(-5deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .fade-in {
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+
+        .orchid-bloom {
+            animation: orchidBloom 1.2s ease-out forwards;
+        }
+
+        /* Navbar Scroll Effect */
+        .navbar-scrolled {
+            background-color: white !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Hero Video Overlay */
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(74, 35, 90, 0.7) 0%, rgba(74, 35, 90, 0.4) 100%);
+        }
+
+        /* Parallax Effect */
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Gold Button Hover Effect */
+        .btn-gold {
+            background-color: var(--accent-gold);
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-gold::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-gold:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Card Hover Effects */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        /* Mobile Menu Animation */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .mobile-menu.active {
+            max-height: 500px;
+        }
+
+        /* Smooth Scroll Reveal */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Image Gallery Hover */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-item img {
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(74, 35, 90, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* Orchid Decoration */
+        .orchid-decoration {
+            position: absolute;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+    </style>
 </head>
 <body>
-    <!-- Content will be added here -->
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300" style="background: rgba(255,255,255,0.95);">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="#home" class="flex items-center">
+                    <img src="./assets/image_0.png" alt="Marcella Restaurant Logo" class="h-12 md:h-16 w-auto">
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-[#4A235A] transition-colors duration-300">Home</a>
+                    <a href="#story" class="text-gray-700 hover:text-[#4A235A] transition-colors duration-300">Our Story</a>
+                    <a href="#menu" class="text-gray-700 hover:text-[#4A235A] transition-colors duration-300">Menu</a>
+                    <a href="#gallery" class="text-gray-700 hover:text-[#4A235A] transition-colors duration-300">Gallery</a>
+                    <a href="#contact" class="text-gray-700 hover:text-[#4A235A] transition-colors duration-300">Contact</a>
+                    <a href="#reservations" class="btn-gold px-6 py-3 rounded-full font-semibold relative">
+                        Reserve a Table
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="mobile-menu md:hidden">
+                <div class="flex flex-col space-y-4 pt-4 pb-3">
+                    <a href="#home" class="text-gray-700 hover:text-[#4A235A] transition-colors duration-300">Home</a>
+                    <a href="#story" class="text-gray-700 hover:text-[#4A235A] transition-colors duration-300">Our Story</a>
+                    <a href="#menu" class="text-gray-700 hover:text-[#4A235A] transition-colors duration-300">Menu</a>
+                    <a href="#gallery" class="text-gray-700 hover:text-[#4A235A] transition-colors duration-300">Gallery</a>
+                    <a href="#contact" class="text-gray-700 hover:text-[#4A235A] transition-colors duration-300">Contact</a>
+                    <a href="#reservations" class="btn-gold px-6 py-3 rounded-full font-semibold text-center relative">
+                        Reserve a Table
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image (fallback for video) -->
+        <div class="absolute inset-0 z-0">
+            <img src="./assets/image_5.jpg" alt="Marcella Restaurant" class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+
+        <!-- Orchid Decoration -->
+        <div class="orchid-decoration orchid-bloom absolute top-10 right-10 w-32 h-32 md:w-48 md:h-48">
+            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 100C100 80 120 60 140 60C160 60 170 80 160 100C150 120 130 120 100 100Z" fill="#F5EEF8" opacity="0.8"/>
+                <path d="M100 100C100 80 80 60 60 60C40 60 30 80 40 100C50 120 70 120 100 100Z" fill="#F5EEF8" opacity="0.8"/>
+                <path d="M100 100C120 100 140 120 140 140C140 160 120 170 100 160C80 150 80 130 100 100Z" fill="#F5EEF8" opacity="0.8"/>
+                <circle cx="100" cy="100" r="15" fill="#D4AF37"/>
+            </svg>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center text-white px-6 max-w-4xl fade-in">
+            <h1 class="text-5xl md:text-7xl font-light mb-6 leading-tight">
+                Marcella Restaurant
+            </h1>
+            <p class="text-xl md:text-3xl font-light mb-4 text-[#F5EEF8]">
+                by Chef Jose Sanchez
+            </p>
+            <p class="text-lg md:text-2xl mb-8 font-light italic">
+                The story of flavor, inspired by love
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#reservations" class="btn-gold px-8 py-4 rounded-full text-lg font-semibold relative">
+                    Book a Table
+                </a>
+                <a href="#menu" class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-white hover:bg-white hover:text-[#4A235A] transition-all duration-300">
+                    View Menu
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Image -->
+                <div class="scroll-reveal">
+                    <div class="relative">
+                        <img src="./assets/image_17.jpg" alt="Chef Jose Sanchez" class="rounded-lg shadow-2xl w-full">
+                        <div class="absolute -bottom-6 -right-6 bg-[#4A235A] text-white p-6 rounded-lg shadow-xl">
+                            <p class="text-2xl font-light">Est. 2022</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="scroll-reveal">
+                    <h2 class="text-4xl md:text-5xl text-[#4A235A] mb-6">
+                        A Story Rooted in Love
+                    </h2>
+                    <div class="w-20 h-1 bg-[#D4AF37] mb-6"></div>
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        Marcella Restaurant is more than just a culinary destination—it's a tribute to the woman who inspired Chef José Sánchez's passion for cooking: his grandmother, Marcella.
+                    </p>
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        Named after her favorite flower, the violet orchid, our restaurant embodies beauty, elegance, and the warmth of family traditions. Every dish tells a story, blending authentic Puerto Rican roots with international culinary techniques.
+                    </p>
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        Since 2009, Chef Sánchez has crafted his culinary journey across kitchens in and beyond Puerto Rico. At Marcella, he brings his vision to life—fresh, locally-sourced ingredients transformed into creative Creole gastronomy that honors tradition while embracing innovation.
+                    </p>
+                    <div class="flex items-center gap-4 mt-8">
+                        <div class="w-16 h-16 bg-[#F5EEF8] rounded-full flex items-center justify-center">
+                            <svg class="w-8 h-8 text-[#4A235A]" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">Fresh, Local Ingredients</p>
+                            <p class="font-semibold text-[#4A235A]">From Puerto Rican Farms</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Divider with Orchid -->
+    <div class="bg-[#F5EEF8] py-2">
+        <div class="container mx-auto text-center">
+            <svg class="w-12 h-12 mx-auto text-[#4A235A] opacity-30" viewBox="0 0 50 50" fill="currentColor">
+                <circle cx="25" cy="25" r="3"/>
+                <path d="M25 15 Q30 10, 35 15 Q35 20, 25 25 Z"/>
+                <path d="M25 15 Q20 10, 15 15 Q15 20, 25 25 Z"/>
+                <path d="M25 35 Q30 40, 35 35 Q35 30, 25 25 Z"/>
+                <path d="M25 35 Q20 40, 15 35 Q15 30, 25 25 Z"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Menu Preview Section -->
+    <section id="menu" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl md:text-5xl text-[#4A235A] mb-4">
+                    Culinary Excellence
+                </h2>
+                <div class="w-20 h-1 bg-[#D4AF37] mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Experience creative Creole gastronomy where traditional Puerto Rican flavors meet international techniques
+                </p>
+            </div>
+
+            <!-- Menu Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Menu Item 1 -->
+                <div class="card-hover scroll-reveal bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="gallery-item">
+                        <img src="./assets/image_36.jpg" alt="Signature Dish" class="w-full h-64 object-cover">
+                        <div class="gallery-overlay">
+                            <p class="text-white text-xl font-light">Appetizers</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl text-[#4A235A] mb-2">Starters</h3>
+                        <p class="text-gray-600">Innovative takes on classic beginnings, including our famous onion soup croquettes</p>
+                    </div>
+                </div>
+
+                <!-- Menu Item 2 -->
+                <div class="card-hover scroll-reveal bg-white rounded-lg shadow-lg overflow-hidden" style="animation-delay: 0.1s;">
+                    <div class="gallery-item">
+                        <img src="./assets/image_37.jpg" alt="Main Course" class="w-full h-64 object-cover">
+                        <div class="gallery-overlay">
+                            <p class="text-white text-xl font-light">Entrées</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl text-[#4A235A] mb-2">Main Courses</h3>
+                        <p class="text-gray-600">Exquisite entrées featuring fresh, local ingredients and creative presentations</p>
+                    </div>
+                </div>
+
+                <!-- Menu Item 3 -->
+                <div class="card-hover scroll-reveal bg-white rounded-lg shadow-lg overflow-hidden" style="animation-delay: 0.2s;">
+                    <div class="gallery-item">
+                        <img src="./assets/image_38.png" alt="Seafood" class="w-full h-64 object-cover">
+                        <div class="gallery-overlay">
+                            <p class="text-white text-xl font-light">Seafood</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl text-[#4A235A] mb-2">Ocean's Finest</h3>
+                        <p class="text-gray-600">Fresh catches from Puerto Rican waters, prepared with international flair</p>
+                    </div>
+                </div>
+
+                <!-- Menu Item 4 -->
+                <div class="card-hover scroll-reveal bg-white rounded-lg shadow-lg overflow-hidden" style="animation-delay: 0.3s;">
+                    <div class="gallery-item">
+                        <img src="./assets/image_39.jpg" alt="Desserts" class="w-full h-64 object-cover">
+                        <div class="gallery-overlay">
+                            <p class="text-white text-xl font-light">Desserts</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl text-[#4A235A] mb-2">Sweet Endings</h3>
+                        <p class="text-gray-600">Artful desserts that blend tradition with contemporary techniques</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="text-center mt-12">
+                <a href="#reservations" class="btn-gold px-8 py-4 rounded-full text-lg font-semibold inline-block relative">
+                    Reserve Your Experience
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Section -->
+    <section class="parallax h-96 flex items-center justify-center" style="background-image: url('./assets/image_6.jpg');">
+        <div class="bg-[#4A235A] bg-opacity-80 px-8 py-12 rounded-lg text-center max-w-3xl mx-6">
+            <p class="text-white text-2xl md:text-3xl font-light italic leading-relaxed">
+                "A dialogue of simplicity between the cooking and the chef—where every ingredient tells its story."
+            </p>
+            <p class="text-[#D4AF37] mt-4 text-lg">- Chef José Sánchez</p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-[#F5EEF8]">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl md:text-5xl text-[#4A235A] mb-4">
+                    Visual Delights
+                </h2>
+                <div class="w-20 h-1 bg-[#D4AF37] mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Every dish is a work of art, crafted with passion and presented with elegance
+                </p>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="gallery-item scroll-reveal h-64 rounded-lg overflow-hidden">
+                    <img src="./assets/image_7.jpg" alt="Gallery Image" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-item scroll-reveal h-64 rounded-lg overflow-hidden" style="animation-delay: 0.05s;">
+                    <img src="./assets/image_8.jpg" alt="Gallery Image" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-item scroll-reveal h-64 rounded-lg overflow-hidden" style="animation-delay: 0.1s;">
+                    <img src="./assets/image_9.jpg" alt="Gallery Image" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-item scroll-reveal h-64 rounded-lg overflow-hidden" style="animation-delay: 0.15s;">
+                    <img src="./assets/image_11.jpg" alt="Gallery Image" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-item scroll-reveal h-64 rounded-lg overflow-hidden" style="animation-delay: 0.2s;">
+                    <img src="./assets/image_12.jpg" alt="Gallery Image" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-item scroll-reveal h-64 rounded-lg overflow-hidden" style="animation-delay: 0.25s;">
+                    <img src="./assets/image_13.jpg" alt="Gallery Image" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-item scroll-reveal h-64 rounded-lg overflow-hidden" style="animation-delay: 0.3s;">
+                    <img src="./assets/image_14.jpg" alt="Gallery Image" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-item scroll-reveal h-64 rounded-lg overflow-hidden" style="animation-delay: 0.35s;">
+                    <img src="./assets/image_15.jpg" alt="Gallery Image" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl md:text-5xl text-[#4A235A] mb-4">
+                    Guest Experiences
+                </h2>
+                <div class="w-20 h-1 bg-[#D4AF37] mx-auto mb-6"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="card-hover scroll-reveal bg-[#F5EEF8] p-8 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-[#D4AF37]">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic">
+                        "An unforgettable dining experience! The combination of traditional Puerto Rican flavors with modern techniques is absolutely brilliant. The service was impeccable."
+                    </p>
+                    <p class="text-[#4A235A] font-semibold">— Maria Rodriguez</p>
+                    <p class="text-gray-500 text-sm">San Juan, PR</p>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="card-hover scroll-reveal bg-[#F5EEF8] p-8 rounded-lg" style="animation-delay: 0.1s;">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-[#D4AF37]">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic">
+                        "Chef Sanchez's passion shines through every dish. The atmosphere is elegant yet welcoming, perfect for both special occasions and family dining. Highly recommended!"
+                    </p>
+                    <p class="text-[#4A235A] font-semibold">— James Mitchell</p>
+                    <p class="text-gray-500 text-sm">New York, USA</p>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="card-hover scroll-reveal bg-[#F5EEF8] p-8 rounded-lg" style="animation-delay: 0.2s;">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-[#D4AF37]">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic">
+                        "The freshness of the ingredients and the creativity in each dish were outstanding. You can truly taste the love and passion in every bite. A must-visit in San Juan!"
+                    </p>
+                    <p class="text-[#4A235A] font-semibold">— Sofia Gonzalez</p>
+                    <p class="text-gray-500 text-sm">Miami, FL</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Section -->
+    <section id="reservations" class="py-20 bg-[#4A235A] text-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12 scroll-reveal">
+                    <h2 class="text-4xl md:text-5xl font-light mb-4">
+                        Reserve Your Table
+                    </h2>
+                    <div class="w-20 h-1 bg-[#D4AF37] mx-auto mb-6"></div>
+                    <p class="text-lg text-[#F5EEF8]">
+                        Join us for an unforgettable culinary experience at Paseo Caribe, San Juan
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Contact Info -->
+                    <div class="scroll-reveal">
+                        <h3 class="text-2xl font-light mb-6 text-[#D4AF37]">Contact Us</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4">
+                                <svg class="w-6 h-6 text-[#D4AF37] mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                                <div>
+                                    <p class="font-semibold">Location</p>
+                                    <p class="text-[#F5EEF8]">Paseo Caribe<br>San Juan, Puerto Rico</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <svg class="w-6 h-6 text-[#D4AF37] mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                </svg>
+                                <div>
+                                    <p class="font-semibold">Phone</p>
+                                    <p class="text-[#F5EEF8]">+1 (787) 463-1403</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <svg class="w-6 h-6 text-[#D4AF37] mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <div>
+                                    <p class="font-semibold">Hours</p>
+                                    <p class="text-[#F5EEF8]">Tuesday - Sunday<br>5:00 PM - 10:00 PM</p>
+                                    <p class="text-[#F5EEF8] text-sm mt-1">Closed Mondays</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Social Media -->
+                        <div class="mt-8">
+                            <h3 class="text-xl font-light mb-4 text-[#D4AF37]">Follow Us</h3>
+                            <div class="flex gap-4">
+                                <a href="https://www.facebook.com/marcellarestaurante/" target="_blank" class="w-12 h-12 bg-[#F5EEF8] bg-opacity-20 rounded-full flex items-center justify-center hover:bg-[#D4AF37] transition-all duration-300">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                    </svg>
+                                </a>
+                                <a href="https://www.instagram.com/marcella.rest/" target="_blank" class="w-12 h-12 bg-[#F5EEF8] bg-opacity-20 rounded-full flex items-center justify-center hover:bg-[#D4AF37] transition-all duration-300">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reservation Form -->
+                    <div class="scroll-reveal" style="animation-delay: 0.1s;">
+                        <h3 class="text-2xl font-light mb-6 text-[#D4AF37]">Book Your Table</h3>
+                        <form class="space-y-4" onsubmit="return handleReservation(event)">
+                            <div>
+                                <input type="text" placeholder="Your Name" required class="w-full px-4 py-3 bg-white bg-opacity-10 border border-[#F5EEF8] border-opacity-30 rounded-lg focus:outline-none focus:border-[#D4AF37] text-white placeholder-[#F5EEF8]">
+                            </div>
+                            <div>
+                                <input type="email" placeholder="Email Address" required class="w-full px-4 py-3 bg-white bg-opacity-10 border border-[#F5EEF8] border-opacity-30 rounded-lg focus:outline-none focus:border-[#D4AF37] text-white placeholder-[#F5EEF8]">
+                            </div>
+                            <div>
+                                <input type="tel" placeholder="Phone Number" required class="w-full px-4 py-3 bg-white bg-opacity-10 border border-[#F5EEF8] border-opacity-30 rounded-lg focus:outline-none focus:border-[#D4AF37] text-white placeholder-[#F5EEF8]">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <input type="date" required class="px-4 py-3 bg-white bg-opacity-10 border border-[#F5EEF8] border-opacity-30 rounded-lg focus:outline-none focus:border-[#D4AF37] text-white placeholder-[#F5EEF8]">
+                                <input type="time" required class="px-4 py-3 bg-white bg-opacity-10 border border-[#F5EEF8] border-opacity-30 rounded-lg focus:outline-none focus:border-[#D4AF37] text-white placeholder-[#F5EEF8]">
+                            </div>
+                            <div>
+                                <select required class="w-full px-4 py-3 bg-white bg-opacity-10 border border-[#F5EEF8] border-opacity-30 rounded-lg focus:outline-none focus:border-[#D4AF37] text-white">
+                                    <option value="" disabled selected>Number of Guests</option>
+                                    <option value="1">1 Guest</option>
+                                    <option value="2">2 Guests</option>
+                                    <option value="3">3 Guests</option>
+                                    <option value="4">4 Guests</option>
+                                    <option value="5">5 Guests</option>
+                                    <option value="6">6+ Guests</option>
+                                </select>
+                            </div>
+                            <div>
+                                <textarea placeholder="Special Requests (Optional)" rows="3" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-[#F5EEF8] border-opacity-30 rounded-lg focus:outline-none focus:border-[#D4AF37] text-white placeholder-[#F5EEF8] resize-none"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-[#D4AF37] text-white py-4 rounded-lg font-semibold hover:bg-[#C19B2F] transition-all duration-300 transform hover:scale-105">
+                                Confirm Reservation
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center scroll-reveal">
+                <h2 class="text-4xl md:text-5xl text-[#4A235A] mb-4">
+                    Visit Us
+                </h2>
+                <div class="w-20 h-1 bg-[#D4AF37] mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 mb-8">
+                    Experience the finest dining in San Juan at Paseo Caribe
+                </p>
+
+                <!-- Map Placeholder -->
+                <div class="w-full h-96 bg-gray-200 rounded-lg overflow-hidden shadow-lg">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.8437449632474!2d-66.07742308509185!3d18.457958987459895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c036f6e2e8c7b33%3A0x7b8c0e0c7e8c7e8c!2sPaseo%20Caribe%2C%20San%20Juan%2C%20Puerto%20Rico!5e0!3m2!1sen!2sus!4v1234567890123"
+                        width="100%"
+                        height="100%"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#4A235A] text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <!-- About -->
+                <div>
+                    <img src="./assets/image_0.png" alt="Marcella Restaurant" class="h-12 mb-4">
+                    <p class="text-[#F5EEF8] text-sm leading-relaxed">
+                        A culinary tribute to tradition, family, and the art of fine dining in San Juan, Puerto Rico.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-[#D4AF37]">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-[#F5EEF8] hover:text-[#D4AF37] transition-colors">Home</a></li>
+                        <li><a href="#story" class="text-[#F5EEF8] hover:text-[#D4AF37] transition-colors">Our Story</a></li>
+                        <li><a href="#menu" class="text-[#F5EEF8] hover:text-[#D4AF37] transition-colors">Menu</a></li>
+                        <li><a href="#gallery" class="text-[#F5EEF8] hover:text-[#D4AF37] transition-colors">Gallery</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-[#D4AF37]">Contact</h4>
+                    <ul class="space-y-2 text-[#F5EEF8] text-sm">
+                        <li>Paseo Caribe</li>
+                        <li>San Juan, Puerto Rico</li>
+                        <li>+1 (787) 463-1403</li>
+                        <li>info@marcellarestaurante.com</li>
+                    </ul>
+                </div>
+
+                <!-- Hours -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-[#D4AF37]">Hours</h4>
+                    <ul class="space-y-2 text-[#F5EEF8] text-sm">
+                        <li><span class="font-semibold">Tuesday - Sunday</span></li>
+                        <li>5:00 PM - 10:00 PM</li>
+                        <li class="mt-4"><span class="font-semibold">Monday</span></li>
+                        <li>Closed</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-[#F5EEF8] border-opacity-20 pt-8 mt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-[#F5EEF8] text-sm">
+                        &copy; 2025 Marcella Restaurant by Jose Sanchez. All rights reserved.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="https://www.facebook.com/marcellarestaurante/" target="_blank" class="text-[#F5EEF8] hover:text-[#D4AF37] transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/marcella.rest/" target="_blank" class="text-[#F5EEF8] hover:text-[#D4AF37] transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 100) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // Smooth Scroll Reveal Animation
+        const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
+
+        const revealOnScroll = () => {
+            scrollRevealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('revealed');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Initial check
+
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80; // Account for fixed navbar
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Reservation Form Handler
+        function handleReservation(event) {
+            event.preventDefault();
+
+            // Get form data
+            const form = event.target;
+            const formData = new FormData(form);
+
+            // Show success message (in production, this would submit to a backend)
+            alert('Thank you for your reservation request! We will contact you shortly to confirm your booking.');
+
+            // Reset form
+            form.reset();
+
+            return false;
+        }
+
+        // Parallax Effect
+        window.addEventListener('scroll', () => {
+            const parallax = document.querySelector('.parallax');
+            if (parallax) {
+                const scrolled = window.pageYOffset;
+                const parallaxTop = parallax.offsetTop;
+                const parallaxHeight = parallax.offsetHeight;
+
+                if (scrolled > parallaxTop - window.innerHeight && scrolled < parallaxTop + parallaxHeight) {
+                    const rate = (scrolled - parallaxTop + window.innerHeight) / (parallaxHeight + window.innerHeight);
+                    parallax.style.backgroundPositionY = `${50 - (rate * 20)}%`;
+                }
+            }
+        });
+
+        // Set minimum date for reservation to today
+        document.addEventListener('DOMContentLoaded', () => {
+            const dateInput = document.querySelector('input[type="date"]');
+            if (dateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.setAttribute('min', today);
+            }
+        });
+    </script>
 </body>
 </html>
